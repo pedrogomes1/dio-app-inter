@@ -48,5 +48,49 @@ export class UserService {
     return { accessToken: token };
   }
 
-  async signUp(user: UserSignUp) {}
+  async signUp(user: UserSignUp) {
+    const userRepository = getRepository(User);
+
+    const { firstName, lastName, email, password } = user;
+
+    const userExists = await userRepository.findOne({
+      where: { email },
+    });
+
+    if (userExists) {
+      throw new AppError('User already registered with the email', 401);
+    }
+
+    const userData = {
+      ...user,
+      password: md5(password).toString(),
+      wallet: 0,
+      accountNumber: Math.floor(Math.random() * 999999999),
+      accountDigit: Math.floor(Math.random() * 99),
+    };
+
+    const userCreated = await userRepository.save(userData);
+
+    const { id } = userCreated;
+    const { secret, expiresIn } = authConfig.jwt;
+
+    const { accountNumber, accountDigit, wallet } = userData;
+
+    const token = sign(
+      {
+        firstName,
+        lastName,
+        accountNumber,
+        accountDigit,
+        wallet,
+      },
+      secret,
+      {
+        subject: id,
+        expiresIn,
+      },
+    );
+
+    return { accessToken: token };
+  }
 }
