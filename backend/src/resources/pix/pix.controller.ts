@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { PixService } from './pix.service';
 
-export class PixControler {
+export class PixController {
   async request(request: Request, response: Response) {
     const pixService = new PixService();
 
