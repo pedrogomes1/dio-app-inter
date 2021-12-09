@@ -1,4 +1,4 @@
-import { 
+import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
@@ -11,7 +11,6 @@ import {
 import { User } from './User';
 @Entity()
 export class Pix {
-
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -34,5 +33,4 @@ export class Pix {
 
   @UpdateDateColumn()
   updatedAt: Date;
-
 }
