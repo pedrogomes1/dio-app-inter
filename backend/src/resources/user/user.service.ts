@@ -20,7 +20,7 @@ export class UserService {
     });
 
     if (!userExists) {
-      throw new AppError('User not found', 401);
+      throw new AppError('Invalid credentials', 401);
     }
 
     const { secret, expiresIn } = authConfig.jwt;
@@ -42,8 +42,6 @@ export class UserService {
         expiresIn,
       },
     );
-
-    delete userExists.password;
 
     return { accessToken: token };
   }
