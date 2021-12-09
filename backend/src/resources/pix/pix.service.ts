@@ -31,7 +31,7 @@ export class PixService {
   async pay(key: string, user: Partial<User>) {
     const keyDecoded = decodeKey(key);
 
-    if (keyDecoded.userID !== user.id) {
+    if (keyDecoded.userID === user.id) {
       throw new AppError(
         'It is not possible to make PIX for the same user',
         401,
