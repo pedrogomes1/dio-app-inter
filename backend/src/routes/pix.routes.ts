@@ -9,6 +9,6 @@ pixRouter.use(userAuthenticated);
 
 pixRouter.post('/request', pixController.request);
 pixRouter.post('/pay/:key', pixController.pay);
-pixRouter.post('/transactions', pixController.transactions);
+pixRouter.get('/transactions', pixController.transactions);
 
 export { pixRouter };
