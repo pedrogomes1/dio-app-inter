@@ -27,4 +27,12 @@ export class UserControler {
 
     return response.status(200).send(user);
   }
+
+  async me(request: Request, response: Response) {
+    const userService = new UserService();
+
+    const user = await userService.me(request.user);
+
+    return response.status(200).send(user);
+  }
 }
